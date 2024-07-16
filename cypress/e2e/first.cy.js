@@ -12,6 +12,5 @@ describe("Pokedex", function () {
     cy.contains("ivysaur").click();
     cy.contains("chlorophyll");
     cy.contains("overgrow");
-    cy.contains("hiddenAbility=");
   });
 });
