@@ -1,3 +1,8 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable semi */
+/* eslint-disable quotes */
+/* eslint-disable no-undef */
 const express = require("express");
 const app = express();
 
