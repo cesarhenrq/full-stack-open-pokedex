@@ -53,8 +53,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Check for '#skip' in commit messages
+        id: check_skip
+        run: |
+          if git log -1 --pretty=%B | grep -q '#skip'; then
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+          fi
+
       - name: Bump version and push tag
-        if: github.event_name == 'push'
+        if: steps.check_skip.outputs.skip == 'false' && github.event_name == 'push'
         uses: anothrNick/github-tag-action@1.70.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
