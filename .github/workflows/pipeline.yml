@@ -63,7 +63,7 @@ jobs:
           fi
 
       - name: Bump version and push tag
-        if: steps.check_skip.outputs.skip == 'false' && github.event_name == 'push'
+        if: steps.check_skip.outputs.skip == 'false' || github.event_name == 'push'
         uses: anothrNick/github-tag-action@1.70.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
