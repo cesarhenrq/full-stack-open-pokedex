@@ -46,6 +46,15 @@ jobs:
         if: github.event_name == 'push'
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
 
+      - name: Notify deployment
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ github.event_name == 'push' && success() }}
+        with:
+          severity: info
+          text: A new version has been deployed
+          details: to ${{ secrets.PROD_URL }} by ${{ github.actor }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
   tag_release:
     runs-on: ubuntu-20.04
     needs: simple_deployment_pipeline
