@@ -52,7 +52,7 @@ jobs:
         with:
           severity: info
           text: A new version has been deployed
-          description: to ${{ env.PROD_URL }} by ${{ github.actor }}
+          description: to ${{ vars.PROD_URL }} by ${{ github.actor }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
