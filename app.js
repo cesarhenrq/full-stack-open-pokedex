@@ -15,8 +15,10 @@ app.get("/version", (req, res) => {
   res.send("0.1.10");
 });
 
-app.get("/health", (req, res) => {
-  res.send("ok");
+app.get("/health", (/* req, res */) => {
+  // res.send("ok");
+
+  throw new Error("Not healthy");
 });
 
 app.listen(PORT, () => {
