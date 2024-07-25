@@ -42,6 +42,15 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
 
+      - name: Notify Build Failure
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: failure()
+        with:
+          severity: error
+          text: Build failed
+          description: The build failed on ${{ github.sha }} by ${{ github.actor }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
       - name: Trigger deployment
         if: github.event_name == 'push'
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
